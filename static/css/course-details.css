@@ -1,0 +1,144 @@
+.course-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.course-info img {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-details {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.students,
+.duration {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.price-detail {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2b2065;
+  margin-top: 20px;
+}
+
+.enroll-now {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2b2065;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.enroll-now:hover {
+  background-color: #1e184c;
+}
+
+.course-description,
+.instructor-info,
+.testimonials {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.course-description > p {
+  padding: 0 10%;
+}
+
+h2,
+h3 {
+  color: #2b2065;
+  margin-bottom: 20px;
+}
+
+ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.course-description img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.instructor-info img {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial {
+  margin-bottom: 20px;
+}
+
+.student-name {
+  font-style: italic;
+  color: #666;
+}
+
+body {
+  background: url(bg2.png) no-repeat center center/cover fixed;
+  display: block;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}

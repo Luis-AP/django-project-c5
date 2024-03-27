@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Curso, Instructor, Estudiante, Categoria
+from .models import Curso, Instructor, Estudiante, Categoria, Inscripcion
 
 
 @admin.register(Curso)
@@ -16,7 +16,7 @@ class CursoAdmin(admin.ModelAdmin):
         ),
         (
             "Detalles del curso",
-            {"fields": ("categoria", "instructor", "duracion", "estado")},
+            {"fields": ("categoria", "instructor", "duracion", "estado", "destacado")},
         ),
     )
 
@@ -44,3 +44,6 @@ class EstudianteAdmin(admin.ModelAdmin):
             {"fields": ("nombre", "email")},
         ),
     )
+
+
+admin.site.register(Inscripcion)
