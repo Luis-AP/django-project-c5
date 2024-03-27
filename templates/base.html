@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Cursos Destacados{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        {% block styles %} {% endblock %}
+    </head>
+    <body class="main-body">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">Cursos</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container">{% block content %} {% endblock %}</div>
+        <footer>
+            <p>&copy; 2023 Motion Graphics Course. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

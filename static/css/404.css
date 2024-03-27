@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "Monda";
+    src: url("../fonts/Monda/Monda-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: "Monda", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.centered {
+    min-height: calc(100vh - (18.4px + 50.4px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-content {
+    text-align: center;
+}
+
+.error-content > h1 {
+    font-size: 38px;
+    margin: 0;
+    color: #8754ff;
+}
+
+.confirm-button {
+    background-color: #8754ff;
+    color: white !important;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.confirm-button:hover {
+    background-color: #9d75fa;
+}

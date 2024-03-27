@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Cursos Destacados -
+Inicio{% endblock %} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
+{% endblock %} {% block content %}
+<section class="hero">
+    <h1>Bienvenido a Cursos Destacados</h1>
+    <p>Descubre los mejores cursos en línea y expande tus conocimientos.</p>
+    <a href="#" class="cta-button">Explorar Cursos</a>
+</section>
+<section class="stats">
+    <div class="stat">
+        <h2>{{ num_cursos }}</h2>
+        <p>
+            {% if num_cursos == 1 %}Curso Disponible{% else %}Cursos
+            Disponibles{% endif %}
+        </p>
+    </div>
+    <div class="stat">
+        <h2>{{ num_estudiantes }}</h2>
+        <p>
+            {% if num_estudiantes == 1 %}Estudiante Inscrito{% else
+            %}Estudiantes Inscritos{% endif %}
+        </p>
+    </div>
+    {% if proximo_curso %}
+    <div class="stat">
+        <h2>{{ proximo_curso.fecha_publicacion|date:"j \d\e F" }}</h2>
+        <p>Próximo Curso</p>
+    </div>
+    {% else %}
+    <div class="stat">
+        <h2>-</h2>
+        <p>No hay próximos cursos</p>
+    </div>
+    {% endif %}
+</section>
+<section class="featured-courses">
+    <h2>Cursos Destacados</h2>
+    <div class="course-grid">
+        {% for curso in cursos_destacados %}
+        <div class="course-card">
+            <a href="#">
+                <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}" />
+            </a>
+            <h3>{{ curso.nombre }}</h3>
+            <p>{{ curso.descripcion|truncatechars:100 }}</p>
+        </div>
+        {% empty %}
+        <p>No hay cursos destacados disponibles.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
