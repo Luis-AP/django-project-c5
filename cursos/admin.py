@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Curso, Instructor, Estudiante, Categoria
+from .models import Curso, Instructor, Estudiante, Categoria, Inscripcion
 
 
 @admin.register(Curso)
@@ -44,3 +44,6 @@ class EstudianteAdmin(admin.ModelAdmin):
             {"fields": ("nombre", "email")},
         ),
     )
+
+
+admin.site.register(Inscripcion)
