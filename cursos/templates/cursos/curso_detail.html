@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Lista de Cursos{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/course-details.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ curso.nombre }}</h1>
+    <div class="course-info">
+        <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}">
+        <div class="course-details">
+            <p class="category">{{ curso.categoria.nombre }}</p>
+            <p class="students">{{ curso.num_estudiantes }} estudiantes inscritos</p>
+            <p class="duration">Duración del curso: {{ curso.duracion }}</p>
+            <p class="price-detail">${{ curso.precio }}</p>
+            <a href="#" class="enroll-now">Inscribirse Ahora</a>
+        </div>
+    </div>
+    <div class="course-description">
+      <h2>Descripción del Curso</h2>
+      <p>{{ curso.descripcion }}</p>
+    </div>
+    <div class="instructor-info">
+        <h2>Información del Instructor</h2>
+        {% if curso.instructor %}
+            <img src="{% static curso.imagen_instructor %}" alt="{{ curso.instructor.nombre }}">
+            <p>{{ curso.instructor.nombre }}</p>
+            <p>{{ curso.instructor.bio }}</p>
+        {% else %}
+            <p>No hay información disponible.</p>
+        {% endif %}
+    </div>
+{% endblock %}
