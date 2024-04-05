@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Lista de Cursos
+{%endblock %} {% block header %} {% endblock %} {% block content %}
+<h1>Los Mejores Cursos Destacados</h1>
+<div class="card-container">
+    {% for curso in cursos %}
+    <div class="card">
+        <a href="{% url 'curso_detail' curso.id %}">
+            <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}" />
+        </a>
+        <div class="card-content">
+            <p class="category">{{ curso.categoria }}</p>
+            <h3>{{ curso.nombre }}</h3>
+            <div class="card-footer">
+                <p>{{ curso.num_estudiantes }} estudiantes</p>
+                <p>{{ curso.duracion }}</p>
+            </div>
+            <div class="price">${{ curso.precio }}</div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay cursos disponibles.</p>
+    {% endfor %}
+</div>
+{% endblock %}

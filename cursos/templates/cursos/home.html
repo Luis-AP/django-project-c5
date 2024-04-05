@@ -5,7 +5,7 @@ Inicio{% endblock %} {% block styles %}
 <section class="hero">
     <h1>Bienvenido a Cursos Destacados</h1>
     <p>Descubre los mejores cursos en línea y expande tus conocimientos.</p>
-    <a href="#" class="cta-button">Explorar Cursos</a>
+    <a href="{% url 'curso_list' %}" class="cta-button">Explorar Cursos</a>
 </section>
 <section class="stats">
     <div class="stat">
@@ -18,8 +18,9 @@ Inicio{% endblock %} {% block styles %}
     <div class="stat">
         <h2>{{ num_estudiantes }}</h2>
         <p>
-            {% if num_estudiantes == 1 %}Estudiante Inscrito{% else
-            %}Estudiantes Inscritos{% endif %}
+            {# Se toman en cuenta todas las incripciones de un mismo alumno #}
+            {% if num_estudiantes == 1 %} Inscripción {% else %} Inscripciones
+            {% endif %}
         </p>
     </div>
     {% if proximo_curso %}

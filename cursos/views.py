@@ -35,3 +35,48 @@ def home(request):
     }
 
     return render(request, "cursos/home.html", context)
+
+
+def curso_list(request):
+    cursos = Curso.objects.select_related("categoria")
+    cursos_data = []
+    for curso in cursos:
+        curso_data = {
+            "id": curso.id,
+            "nombre": curso.nombre,
+            "descripcion": curso.descripcion,
+            "precio": curso.precio,
+            "fecha_publicacion": curso.fecha_publicacion,
+            "categoria": curso.categoria.nombre,
+            "duracion": curso.duracion,
+            "num_estudiantes": curso.estudiantes.count(),
+            "imagen": f"img/{curso.categoria.color}.png",
+        }
+        cursos_data.append(curso_data)
+
+    context = {"cursos": cursos_data}
+    return render(request, "cursos/curso_list.html", context=context)
+
+
+def curso_detail(request, curso_id):
+    curso = (
+        Curso.objects.prefetch_related("estudiantes")
+        .prefetch_related("instructor")
+        .get(id=curso_id)
+    )
+
+    curso_data = {
+        "id": curso.id,
+        "nombre": curso.nombre,
+        "descripcion": curso.descripcion,
+        "precio": curso.precio,
+        "fecha_publicacion": curso.fecha_publicacion,
+        "categoria": curso.categoria.nombre,
+        "duracion": curso.duracion,
+        "num_estudiantes": curso.estudiantes.count(),
+        "imagen": f"img/{curso.categoria.color}.png",
+        "instructor": curso.instructor,
+        "imagen_instructor": f'img/{curso.instructor.nombre.split(" ")[0]}.png',
+    }
+    context = {"curso": curso_data}
+    return render(request, "cursos/curso_detail.html", context=context)
