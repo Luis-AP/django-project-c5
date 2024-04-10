@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import *
 from datetime import date
+from .forms.curso_form import CursoForm
 
 
 # Create your views here.
@@ -38,7 +39,7 @@ def home(request):
 
 
 def curso_list(request):
-    cursos = Curso.objects.select_related("categoria")
+    cursos = Curso.objects.select_related("categoria").filter(estado="publicado")
     cursos_data = []
     for curso in cursos:
         curso_data = {
@@ -78,5 +79,48 @@ def curso_detail(request, curso_id):
         "instructor": curso.instructor,
         "imagen_instructor": f'img/{curso.instructor.nombre.split(" ")[0]}.png',
     }
-    context = {"curso": curso_data}
+    context = {
+        "curso": curso_data,
+        "publicado": True if curso.estado == "publicado" else False,
+    }
     return render(request, "cursos/curso_detail.html", context=context)
+
+
+def create_curso(request):
+    if request.method == "POST":
+        form = CursoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("curso_list")
+    else:  # Método GET
+        form = CursoForm()
+
+    context = {"titulo": "Nuevo Curso", "form": form, "submit": "Crear Curso"}
+    return render(request, "cursos/curso_form.html", context)
+
+
+def update_curso(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+    if request.method == "POST":
+        form = CursoForm(request.POST, instance=curso)
+        if form.is_valid():
+            form.save()
+            return redirect("curso_detail", curso_id=curso_id)
+    else:  # Método GET
+        form = CursoForm(instance=curso)
+
+    context = {"titulo": "Editar Curso", "form": form, "submit": "Actualizar Curso"}
+    return render(request, "cursos/curso_form.html", context)
+
+
+def delete_curso(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+    curso.delete()
+    return redirect("curso_list")
+
+
+def hide_curso(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+    curso.estado = "archivado"
+    curso.save()
+    return redirect("curso_list")
