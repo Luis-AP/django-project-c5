@@ -40,6 +40,7 @@ def home(request):
 
 def curso_list(request):
     cursos = Curso.objects.select_related("categoria").filter(estado="publicado")
+
     cursos_data = []
     for curso in cursos:
         curso_data = {
@@ -76,12 +77,12 @@ def curso_detail(request, curso_id):
         "duracion": curso.duracion,
         "num_estudiantes": curso.estudiantes.count(),
         "imagen": f"img/{curso.categoria.color}.png",
+        "estado": curso.estado,
         "instructor": curso.instructor,
         "imagen_instructor": f'img/{curso.instructor.nombre.split(" ")[0]}.png',
     }
     context = {
         "curso": curso_data,
-        "publicado": True if curso.estado == "publicado" else False,
     }
     return render(request, "cursos/curso_detail.html", context=context)
 
@@ -124,3 +125,32 @@ def hide_curso(request, curso_id):
     curso.estado = "archivado"
     curso.save()
     return redirect("curso_list")
+
+
+def hidden_cursos(request):
+    cursos = Curso.objects.select_related("categoria").filter(estado="archivado")
+
+    cursos_data = []
+    for curso in cursos:
+        curso_data = {
+            "id": curso.id,
+            "nombre": curso.nombre,
+            "descripcion": curso.descripcion,
+            "precio": curso.precio,
+            "fecha_publicacion": curso.fecha_publicacion,
+            "categoria": curso.categoria.nombre,
+            "duracion": curso.duracion,
+            "num_estudiantes": curso.estudiantes.count(),
+            "imagen": f"img/{curso.categoria.color}.png",
+        }
+        cursos_data.append(curso_data)
+
+    context = {"cursos": cursos_data}
+    return render(request, "cursos/curso_list.html", context=context)
+
+
+def restore_curso(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+    curso.estado = "publicado"
+    curso.save()
+    return redirect("hidden_cursos")
