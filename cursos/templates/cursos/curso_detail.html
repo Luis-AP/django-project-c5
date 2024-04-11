@@ -35,7 +35,7 @@
 
     <div class="d-flex justify-content-end">
         <a href="{% url 'curso_update' curso.id %}" class="cta-button me-3">Actualizar Datos</a>
-        {% if publicado %}
+        {% if curso.estado == "publicado" %}
             <a href="#"
                 class="cta-button"
                 data-bs-toggle="modal"
@@ -49,26 +49,51 @@
         {% endif %}
     </div>
 
-    <div class="modal fade"
-         id="confirmDeleteModal"
-         tabindex="-1"
-         aria-labelledby="confirmDeleteModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">¿Estás seguro de que deseas eliminar este curso?</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <a href="{% url 'hide_curso' curso.id %}" class="btn btn-danger">Eliminar</a>
+    {% if curso.estado == "publicado" %}
+        <div class="modal fade"
+            id="confirmDeleteModal"
+            tabindex="-1"
+            aria-labelledby="confirmDeleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación virtual</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">¿Estás seguro de que deseas archivar este curso?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'hide_curso' curso.id %}" class="btn btn-danger">Archivar</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="modal fade"
+            id="confirmDeleteModal"
+            tabindex="-1"
+            aria-labelledby="confirmDeleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar restauración</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">¿Estás seguro de que deseas restaurar este curso?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'restore_curso' curso.id %}" class="btn btn-danger">Restaurar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
