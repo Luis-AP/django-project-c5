@@ -63,6 +63,9 @@ class Curso(models.Model):
         Instructor, on_delete=models.SET_NULL, null=True, blank=True
     )
     estudiantes = models.ManyToManyField(Estudiante, through="Inscripcion")
+    imagen = models.ImageField(
+        upload_to="cursos/curso", default="cursos/curso/fallback.png", blank=True
+    )
 
     def __str__(self):
         return self.nombre

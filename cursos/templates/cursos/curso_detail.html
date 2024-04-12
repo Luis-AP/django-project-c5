@@ -9,7 +9,7 @@
 {% block content %}
     <h1>{{ curso.nombre }}</h1>
     <div class="course-info">
-        <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}">
+        <img src="{{ curso.imagen }}" alt="{{ curso.nombre }}">
         <div class="course-details">
             <p class="category">{{ curso.categoria.nombre }}</p>
             <p class="students">{{ curso.num_estudiantes }} estudiantes inscritos</p>

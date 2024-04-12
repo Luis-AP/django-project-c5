@@ -24,7 +24,7 @@ def home(request):
             "id": curso.id,
             "nombre": curso.nombre,
             "descripcion": curso.descripcion,
-            "imagen": f"img/{curso.categoria.color}.png",
+            "imagen": curso.imagen.url,
         }
         cursos_destacados_data.append(curso_data)
 
@@ -52,7 +52,7 @@ def curso_list(request):
             "categoria": curso.categoria.nombre,
             "duracion": curso.duracion,
             "num_estudiantes": curso.estudiantes.count(),
-            "imagen": f"img/{curso.categoria.color}.png",
+            "imagen": curso.imagen.url,
         }
         cursos_data.append(curso_data)
 
@@ -76,7 +76,7 @@ def curso_detail(request, curso_id):
         "categoria": curso.categoria.nombre,
         "duracion": curso.duracion,
         "num_estudiantes": curso.estudiantes.count(),
-        "imagen": f"img/{curso.categoria.color}.png",
+        "imagen": curso.imagen.url,
         "estado": curso.estado,
         "instructor": curso.instructor,
         "imagen_instructor": f'img/{curso.instructor.nombre.split(" ")[0]}.png',
@@ -141,7 +141,7 @@ def hidden_cursos(request):
             "categoria": curso.categoria.nombre,
             "duracion": curso.duracion,
             "num_estudiantes": curso.estudiantes.count(),
-            "imagen": f"img/{curso.categoria.color}.png",
+            "imagen": curso.imagen.url,
         }
         cursos_data.append(curso_data)
 

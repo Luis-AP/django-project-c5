@@ -16,7 +16,16 @@ class CursoAdmin(admin.ModelAdmin):
         ),
         (
             "Detalles del curso",
-            {"fields": ("categoria", "instructor", "duracion", "estado", "destacado")},
+            {
+                "fields": (
+                    "categoria",
+                    "instructor",
+                    "duracion",
+                    "estado",
+                    "destacado",
+                    "imagen",
+                )
+            },
         ),
     )
 
