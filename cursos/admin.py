@@ -40,6 +40,12 @@ class CategoriaAdmin(admin.ModelAdmin):
 class InstructorAdmin(admin.ModelAdmin):
     list_display = ("nombre", "bio")
     search_fields = ("nombre",)
+    fieldsets = (
+        (
+            "Información general",
+            {"fields": ("nombre", "bio", "avatar")},
+        ),
+    )
 
 
 @admin.register(Estudiante)
@@ -50,7 +56,7 @@ class EstudianteAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             "Información general",
-            {"fields": ("nombre", "email")},
+            {"fields": ("nombre", "email", "avatar")},
         ),
     )
 

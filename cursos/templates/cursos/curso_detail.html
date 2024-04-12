@@ -25,7 +25,7 @@
     <div class="instructor-info">
         <h2>Información del Instructor</h2>
         {% if curso.instructor %}
-            <img src="{% static curso.imagen_instructor %}" alt="{{ curso.instructor.nombre }}">
+            <img src="{{ curso.imagen_instructor }}" alt="{{ curso.instructor.nombre }}">
             <p>{{ curso.instructor.nombre }}</p>
             <p>{{ curso.instructor.bio }}</p>
         {% else %}

@@ -79,7 +79,7 @@ def curso_detail(request, curso_id):
         "imagen": curso.imagen.url,
         "estado": curso.estado,
         "instructor": curso.instructor,
-        "imagen_instructor": f'img/{curso.instructor.nombre.split(" ")[0]}.png',
+        "imagen_instructor": curso.instructor.avatar.url,
     }
     context = {
         "curso": curso_data,
@@ -89,7 +89,7 @@ def curso_detail(request, curso_id):
 
 def create_curso(request):
     if request.method == "POST":
-        form = CursoForm(request.POST)
+        form = CursoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("curso_list")
@@ -103,7 +103,7 @@ def create_curso(request):
 def update_curso(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     if request.method == "POST":
-        form = CursoForm(request.POST, instance=curso)
+        form = CursoForm(request.POST, request.FILES, instance=curso)
         if form.is_valid():
             form.save()
             return redirect("curso_detail", curso_id=curso_id)
