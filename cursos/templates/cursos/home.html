@@ -41,7 +41,7 @@ Inicio{% endblock %} {% block styles %}
         {% for curso in cursos_destacados %}
         <div class="course-card">
             <a href="#">
-                <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}" />
+                <img src="{{ curso.imagen }}" alt="{{ curso.nombre }}" />
             </a>
             <h3>{{ curso.nombre }}</h3>
             <p>{{ curso.descripcion|truncatechars:100 }}</p>

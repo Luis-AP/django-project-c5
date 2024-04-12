@@ -9,7 +9,7 @@
 {% block content %}
     <h1>{{ curso.nombre }}</h1>
     <div class="course-info">
-        <img src="{% static curso.imagen %}" alt="{{ curso.nombre }}">
+        <img src="{{ curso.imagen }}" alt="{{ curso.nombre }}">
         <div class="course-details">
             <p class="category">{{ curso.categoria.nombre }}</p>
             <p class="students">{{ curso.num_estudiantes }} estudiantes inscritos</p>
@@ -25,7 +25,7 @@
     <div class="instructor-info">
         <h2>Información del Instructor</h2>
         {% if curso.instructor %}
-            <img src="{% static curso.imagen_instructor %}" alt="{{ curso.instructor.nombre }}">
+            <img src="{{ curso.imagen_instructor }}" alt="{{ curso.instructor.nombre }}">
             <p>{{ curso.instructor.nombre }}</p>
             <p>{{ curso.instructor.bio }}</p>
         {% else %}

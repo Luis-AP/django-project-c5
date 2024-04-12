@@ -90,3 +90,6 @@ local_settings.py
 venv/
 staticfiles/
 db.sqlite3
+
+media/*
+!media/**/fallback.png
