@@ -2,6 +2,8 @@ from django.db import models
 from datetime import timedelta
 from django.core.exceptions import ValidationError
 
+from tinymce.models import HTMLField
+
 
 class Instructor(models.Model):
     nombre = models.CharField(max_length=100)
@@ -49,7 +51,7 @@ def duracion_minima(value):
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField()
+    descripcion = models.CharField(max_length=255, verbose_name="Descripción breve")
     precio = models.IntegerField(validators=[precio_positivo])
     fecha_publicacion = models.DateField(verbose_name="Fecha de publicación")
     categoria = models.ForeignKey(
@@ -67,7 +69,7 @@ class Curso(models.Model):
         ],
         blank=True,
     )
-    requisitos = models.TextField(blank=True)
+    requisitos = HTMLField(default="", blank=True)
     destacado = models.BooleanField(default=False)
     instructor = models.ForeignKey(
         Instructor, on_delete=models.SET_NULL, null=True, blank=True
@@ -76,6 +78,7 @@ class Curso(models.Model):
     imagen = models.ImageField(
         upload_to="cursos/curso", default="cursos/curso/fallback.png", blank=True
     )
+    contenido = HTMLField(default="")
 
     def __str__(self):
         return self.nombre

@@ -1,6 +1,8 @@
 from django import forms
 from ..models import Curso, Instructor, Categoria
 
+from tinymce.widgets import TinyMCE
+
 
 class CursoForm(forms.ModelForm):
     instructor = forms.ModelChoiceField(
@@ -20,24 +22,28 @@ class CursoForm(forms.ModelForm):
         model = Curso
         fields = [
             "nombre",
+            "contenido",
             "descripcion",
             "precio",
             "fecha_publicacion",
             "instructor",
             "categoria",
             "duracion",
+            "requisitos",
             "estado",
             "destacado",
             "imagen",
         ]
         labels = {
             "nombre": "Nombre del curso",
-            "descripcion": "Descripción",
+            "contenido": "Contenido",
+            "descripcion": "Descripción breve",
             "precio": "Precio",
             "fecha_publicacion": "Fecha de publicación",
             "instructor": "Instructor",
             "categoria": "Categoría",
             "duracion": "Duración",
+            "requisitos": "Requisitos",
             "estado": "Estado",
             "destacado": "Destacado",
             "imagen": "Imagen del curso",
@@ -49,7 +55,8 @@ class CursoForm(forms.ModelForm):
                     "class": "form-control",
                 }
             ),
-            "descripcion": forms.Textarea(
+            "contenido": TinyMCE(),
+            "descripcion": forms.TextInput(
                 attrs={"placeholder": "Ingrese la descripción", "class": "form-control"}
             ),
             "precio": forms.NumberInput(
@@ -65,6 +72,7 @@ class CursoForm(forms.ModelForm):
             "duracion": forms.TimeInput(
                 attrs={"placeholder": "Ingrese la duración", "class": "form-control"}
             ),
+            "requisitos": TinyMCE(),
             "estado": forms.Select(attrs={"class": "form-control"}),
             "destacado": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "imagen": forms.FileInput(attrs={"class": "form-control"}),
