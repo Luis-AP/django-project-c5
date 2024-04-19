@@ -80,6 +80,7 @@ def curso_detail(request, curso_id):
         "estado": curso.estado,
         "instructor": curso.instructor,
         "imagen_instructor": curso.instructor.avatar.url,
+        "contenido": curso.contenido,
     }
     context = {
         "curso": curso_data,
