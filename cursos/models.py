@@ -4,18 +4,34 @@ from django.core.exceptions import ValidationError
 
 from tinymce.models import HTMLField
 
+from django.contrib.auth.models import User
+
 
 class Instructor(models.Model):
-    nombre = models.CharField(max_length=100)
-    bio = models.TextField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     avatar = models.ImageField(
-        upload_to="cursos/instructor",
-        default="cursos/instructor/fallback.png",
+        upload_to="cursos/usuario",
+        default="cursos/usuario/fallback.png",
         blank=True,
     )
+    bio = HTMLField(default="", blank=True)
+    _is_deleting = False
+
+    def delete(self, *args, **kwargs):
+        if not self._is_deleting:
+            self._is_deleting = True
+            try:
+                super().delete(*args, **kwargs)
+            finally:
+                self._is_deleting = False
+
+    def save(self, *args, **kwargs):
+        if not self.avatar:
+            self.avatar = "cursos/usuario/fallback.png"
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.nombre
+        return self.user.username if self.user else "Instructor"
 
 
 class Estudiante(models.Model):
