@@ -4,6 +4,13 @@ from .models import *
 from datetime import date
 from .forms.curso_form import CursoForm
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from django.db.models import Q
+
 
 # Create your views here.
 def home(request):
@@ -82,8 +89,19 @@ def curso_detail(request, curso_id):
         "imagen_instructor": curso.instructor.avatar.url,
         "contenido": curso.contenido,
     }
+
+    if request.user.is_superuser:
+        has_access = True
+    else:
+        try:
+            instructor = Instructor.objects.get(user=request.user.id)
+            has_access = Curso.objects.filter(instructor=instructor).exists()
+        except Instructor.DoesNotExist:
+            has_access = False
+
     context = {
         "curso": curso_data,
+        "has_access": has_access,
     }
     return render(request, "cursos/curso_detail.html", context=context)
 
@@ -101,6 +119,7 @@ def create_curso(request):
     return render(request, "cursos/curso_form.html", context)
 
 
+@login_required
 def update_curso(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     if request.method == "POST":
@@ -115,12 +134,14 @@ def update_curso(request, curso_id):
     return render(request, "cursos/curso_form.html", context)
 
 
+@login_required
 def delete_curso(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     curso.delete()
     return redirect("curso_list")
 
 
+@login_required
 def hide_curso(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     curso.estado = "archivado"
@@ -128,6 +149,7 @@ def hide_curso(request, curso_id):
     return redirect("curso_list")
 
 
+@login_required
 def hidden_cursos(request):
     cursos = Curso.objects.select_related("categoria").filter(estado="archivado")
 
@@ -150,8 +172,58 @@ def hidden_cursos(request):
     return render(request, "cursos/curso_list.html", context=context)
 
 
+@login_required
 def restore_curso(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     curso.estado = "publicado"
     curso.save()
     return redirect("hidden_cursos")
+
+
+def login_view(request):
+    # Paramétros de ruta para redirección
+    next_url = request.GET.get("next")
+
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("home"))
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if next_url:
+                return redirect(next_url)
+            return redirect("home")
+        else:
+            return render(
+                request,
+                "cursos/login.html",
+                {"error": "Nombre de usuario o contraseña incorrectos"},
+            )
+    else:  # Método GET
+        return render(request, "cursos/login.html")
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("login"))
+
+
+def search_view(request):
+    query = request.GET.get("query", "")
+    if query:
+        cursos = Curso.objects.filter(
+            Q(nombre__icontains=query)
+            | Q(contenido__icontains=query)
+            | Q(descripcion__icontains=query),
+            estado="publicado",
+        )
+    else:
+        cursos = Curso.objects.none()  # No hay resultados si no hay consulta
+
+    return render(
+        request, "cursos/search_results.html", {"cursos": cursos, "query": query}
+    )

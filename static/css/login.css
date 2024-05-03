@@ -1,0 +1,33 @@
+.login-card {
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: auto;
+    width: 50%;
+    max-width: 600px; /* Limita el ancho máximo de la tarjeta */
+}
+
+.form-label {
+    font-weight: bold;
+    color: #2b2065;
+}
+
+.btn-primary {
+    background-color: #2b2065;
+    border-color: #2b2065;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #1e184c;
+}
+
+.alert {
+    margin-top: 20px;
+    border-radius: 5px;
+}
