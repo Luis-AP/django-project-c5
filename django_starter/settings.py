@@ -167,3 +167,5 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": False,
     "statusbar": True,
 }
+
+LOGIN_URL = "login"

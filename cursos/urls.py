@@ -12,4 +12,7 @@ urlpatterns = [
     path("cursos/<int:curso_id>/ocultar/", hide_curso, name="hide_curso"),
     path("cursos/ocultos/", hidden_cursos, name="hidden_cursos"),
     path("cursos/<int:curso_id>/restaurar/", restore_curso, name="restore_curso"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+    path("search/", search_view, name="search_view"),
 ]

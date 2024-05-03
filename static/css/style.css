@@ -14,16 +14,25 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Esta línea asegura que los elementos internos se centren verticalmente */
+    height: 100%; /* Opcionalmente puedes definir una altura específica si es necesario */
+}
+
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Asegura que los elementos de la lista se distribuyan a lo largo del eje horizontal */
+    align-items: center; /* Centra los elementos de la lista verticalmente */
+    height: 100%;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 15px; /* Ajusta según sea necesario para el espaciado horizontal */
 }
 
 nav ul li a {
@@ -146,5 +155,43 @@ footer {
 }
 
 .cta-button:hover {
+    background-color: #1e184c;
+}
+
+/* Search bar */
+.search-form {
+    align-self: center;
+}
+
+.search-form form {
+    display: flex;
+    align-items: center; /* Asegura que los campos del formulario y el botón se alineen verticalmente */
+    margin-bottom: 0; /* Elimina el margen inferior por defecto en algunos navegadores */
+}
+
+.search-form input[type="search"],
+.search-form button {
+    height: 40px; /* Asegura que el input y el botón tengan la misma altura */
+}
+
+.search-form input[type="search"] {
+    border: none;
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 20px; /* Estilo redondeado para que coincida visualmente con el diseño general */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.search-form button {
+    padding: 8px 16px;
+    background-color: #2b2065;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-form button:hover {
     background-color: #1e184c;
 }

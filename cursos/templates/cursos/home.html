@@ -40,7 +40,7 @@ Inicio{% endblock %} {% block styles %}
     <div class="course-grid">
         {% for curso in cursos_destacados %}
         <div class="course-card">
-            <a href="#">
+            <a href="{% url 'curso_detail' curso.id %}">
                 <img src="{{ curso.imagen }}" alt="{{ curso.nombre }}" />
             </a>
             <h3>{{ curso.nombre }}</h3>
